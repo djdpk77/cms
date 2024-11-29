@@ -1,4 +1,4 @@
-package spring_five.cms.domain;
+package spring_five.cms.domain.vo;
 
 import lombok.Data;
 
