@@ -1,21 +1,24 @@
 package spring_five.cms.infra.swagger;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.List;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfiguration {
+
     @Bean
-    public Docket documentation() {
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.withClassAnnotation(
-                RestController.class)).paths(PathSelectors.any()).build();
+    public OpenAPI myCustomConfig() {
+        return new OpenAPI()
+                .info(new Info().title("CMS APIs").description("By Durga"))
+                .servers(List.of(new Server().url("http://localhost:8080").description("local"),
+                                 new Server().url("http://localhost:8081").description("live")))
+                .tags(List.of(new Tag().name("Category")));
     }
 
 }
